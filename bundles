@@ -1,0 +1,89 @@
+" vim: filetype=vim
+" list only the plugin groups you will use
+if !exists('g:bundle_groups')
+    let g:bundle_groups=['general']
+endif
+
+if count(g:bundle_groups, 'general')
+    " Ctrlp
+    Bundle 'kien/ctrlp.vim'
+      "Config
+        let g:ctrlp_working_path_mode = 0
+        let g:ctrlp_custom_ignore = {
+              \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
+              \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.cur$\|\.swf$\|\.ico$\|\.ttf$\'
+              \ }
+        let g:ctrlp_max_files = 0
+
+    " Surround
+    Bundle 'tpope/vim-surround'
+endif
+
+if count(g:bundle_groups, 'programming')
+  " Programming
+    " Gist
+    Bundle 'mattn/webapi-vim'
+    Bundle 'mattn/gist-vim'
+      "Config
+        let g:gist_clip_command = 'pbcopy'
+        let g:gist_detect_filetype = 1
+        let g:gist_show_privates = 1
+        let g:gist_post_private = 1
+        map  <Leader>gt :Gist<CR>
+
+    " Powerline
+    Bundle 'Lokaltog/vim-powerline'
+      "Config
+        let g:Powerline_symbols       = 'fancy'
+        let g:Powerline_cache_enabled = 0
+        " let g:Powerline_theme         = 'skwp'
+        " let g:Powerline_colorscheme   = 'skwp'
+
+    " Syntastic
+    Bundle 'scrooloose/syntastic'
+
+    " Gitv
+    Bundle 'gitv'
+    nmap <leader>gv :Gitv --all<cr>
+    nmap <leader>gV :Gitv! --all<cr>
+    vmap <leader>gV :Gitv! --all<cr>
+
+    " Fugitive
+    Bundle 'tpope/vim-fugitive'
+      "Config
+        nmap <Leader>gB :Gbrowse<CR>
+        nmap <Leader>gb :Gblame<CR>
+        nmap <Leader>gs :Gstatus<CR>
+        nmap <Leader>gd :Gdiff<CR>
+
+    if executable('ctags')
+        " TagBar
+        Bundle 'majutsushi/tagbar'
+          "Config
+            nmap <Leader>t :TagbarToggle<CR>
+    endif
+    if executable('ack')
+      " Ack
+      Bundle 'mileszs/ack.vim'
+    endif
+
+    " Autocomplete with Ctrl+Space
+    inoremap <C-Space> <C-x><C-o>
+
+    if count(g:bundle_groups, 'php')
+      autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
+      Bundle 'mikehaertl/pdv-standalone'
+
+      " PHP documenter script bound to Control-P
+      autocmd FileType php inoremap <leader>pd <ESC>:call PhpDocSingle()<CR>i
+      autocmd FileType php nnoremap <leader>pd :call PhpDocSingle()<CR>
+      autocmd FileType php vnoremap <leader>pd :call PhpDocRange()<CR>
+
+      " If you prefer the Omni-Completion tip window to close when a selection is
+      " made, these lines close it on movement in insert mode or when leaving
+      " insert mode
+      autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+      autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+    endif
+endif
