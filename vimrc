@@ -1,5 +1,5 @@
 set nocompatible                " choose no compatibility with legacy vi
-filetype off			              " required for Vundle
+filetype off                    " required for Vundle
 set exrc                        " enable per-directory .vimrc files
 set secure                      " recommended security for external .vimrc files
 set encoding=utf-8              " Encoding
@@ -34,20 +34,20 @@ set nowrap                      " Don't wrap lines
 set tabstop=2 shiftwidth=2      " A tab is two spaces (or set this to 4)
 set expandtab                   " Use spaces, not tabs (optional)
 set backspace=indent,eol,start  " Backspace through everything in insert mode
-vmap > >gv                      " Keep visual mode during indenting
-vmap < <gv                      " Keep visual mode during indenting
-au FocusLost * :silent! wall    " Save when losing focus
 set laststatus=2                " Always show the statusline
 set showcmd                     " Display incomplete commands
-:highlight ExtraWhitespace ctermbg=red guibg=red
-:match ExtraWhitespace /\s\+$/
 set nospell                     " Turn off spellchecker
 set number                      " Show line numbers
 set shortmess=atI               " Don't show intro messages
 set report=0                    " Tell us about changes
 set modeline
 set modelines=10
-set lazyredraw                  "Stop vim from redrawing the screen during complex operations
+set lazyredraw                  " Stop vim from redrawing the screen during complex operations
+vmap > >gv                      " Keep visual mode during indenting
+vmap < <gv                      " Keep visual mode during indenting
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:match ExtraWhitespace /\s\+$/
+au FocusLost * :silent! wall    " Save when losing focus
 
 " Mouse
 set clipboard+=unnamed " Share your clipboard with system
@@ -74,11 +74,11 @@ set undofile
 
 " Some personal shortcuts
 nmap <leader>hs :nohlsearch<CR>
-nmap <leader>fef ggVG= " format the entire file
-nmap <leader>u mQviwU`Q " upper word
-nmap <leader>l mQviwu`Q " lower word
-nmap <leader>U mQgewvU`Q " upper first char of word
-nmap <leader>L mQgewvu`Q " upper first char of word
+nmap <leader>fef ggVG=                " format the entire file
+nmap <leader>u mQviwU`Q               " upper word
+nmap <leader>l mQviwu`Q               " lower word
+nmap <leader>U mQgewvU`Q              " upper first char of word
+nmap <leader>L mQgewvu`Q              " upper first char of word
 nmap <S-Enter> O<ESC>
 nmap <CR> o<ESC>
 
