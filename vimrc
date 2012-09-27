@@ -72,6 +72,9 @@ set noswapfile                        " It's 2012, Vim.
 set undodir=~/.vim/undo/
 set undofile
 
+" Shell
+set shellcmdflag=-ic                  " Make shell behave as command prompt
+
 " Some personal shortcuts
 nmap <leader>hs :nohlsearch<CR>
 nmap <leader>fef ggVG=                " format the entire file
