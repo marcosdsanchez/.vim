@@ -38,7 +38,6 @@ set backspace=indent,eol,start  " Backspace through everything in insert mode
 set laststatus=2                " Always show the statusline
 set showcmd                     " Display incomplete commands
 set nospell                     " Turn off spellchecker
-set number                      " Show line numbers
 set shortmess=atI               " Don't show intro messages
 set report=0                    " Tell us about changes
 set modeline
