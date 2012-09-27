@@ -82,11 +82,28 @@ nmap <leader>L mQgewvu`Q              " upper first char of word
 nmap <S-Enter> O<ESC>
 nmap <CR> o<ESC>
 
-" Removes trailing spaces
-if !exists("*ClearWhiteSpace")
-  function ClearWhiteSpace()
+" Functions
+  function! ToggleLineNumbers()
+    if(&number == 1)
+       set nonumber
+    else
+       set number
+    endif
+  endfunc
+  nmap <leader>tn  :call ToggleLineNumbers()<CR>                " Show/Hide line numbers
+
+  function! ToggleRelativeNumbers()
+    if(&relativenumber == 1)
+       set norelativenumber
+    else
+       set relativenumber
+    endif
+  endfunc
+  nmap <leader>trn  :call ToggleRelativeNumbers()<CR>            " Show/Hide relative line numbers
+
+  " Removes trailing spaces
+  function! ClearWhiteSpace()
     %s/\s*$//
     ''
-  :endfunction
+  endfunc
   nmap <leader>cw :call ClearWhiteSpace()<CR>
-endif
