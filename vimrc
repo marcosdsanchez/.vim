@@ -29,6 +29,7 @@ set smartcase                   " ... unless they contain at least one capital l
 
 " Editor
 filetype plugin indent on       " Load file type plugins + indentation
+
 set nostartofline               " Don’t reset cursor to start of line when moving around.
 set nowrap                      " Don't wrap lines
 set tabstop=2 shiftwidth=2      " A tab is two spaces (or set this to 4)
@@ -43,10 +44,11 @@ set report=0                    " Tell us about changes
 set modeline
 set modelines=10
 set lazyredraw                  " Stop vim from redrawing the screen during complex operations
+set list                        " Show trailing whitespace
+set listchars=tab:\ ·,trail:·   " Show trailing whitespace
+
 vmap > >gv                      " Keep visual mode during indenting
 vmap < <gv                      " Keep visual mode during indenting
-:highlight ExtraWhitespace ctermbg=red guibg=red
-:match ExtraWhitespace /\s\+$/
 au FocusLost * :silent! wall    " Save when losing focus
 
 " Mouse
