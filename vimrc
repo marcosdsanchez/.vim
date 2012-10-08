@@ -82,7 +82,7 @@ nmap <leader>fef ggVG=                " format the entire file
 nmap <leader>u mQviwU`Q               " upper word
 nmap <leader>l mQviwu`Q               " lower word
 nmap <leader>U mQgewvU`Q              " upper first char of word
-nmap <leader>L mQgewvu`Q              " upper first char of word
+nmap <leader>L mQgewvu`Q              " lower first char of word
 nmap <S-Enter> O<ESC>
 nmap <CR> o<ESC>
 
@@ -95,6 +95,15 @@ nmap <CR> o<ESC>
     endif
   endfunc
   nmap <leader>tn  :call ToggleLineNumbers()<CR>                " Show/Hide line numbers
+
+  function! ToggleWrap()
+    if(&wrap == 1)
+       set nowrap
+    else
+       set wrap
+    endif
+  endfunc
+  nmap <leader>tw  :call ToggleWrap()<CR>                       " Set/Unset wrap
 
   function! ToggleRelativeNumbers()
     if(&relativenumber == 1)
