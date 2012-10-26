@@ -65,6 +65,7 @@ if count(g:bundle_groups, 'programming')
     inoremap <C-Space> <C-x><C-o>
 
     if count(g:bundle_groups, 'php')
+      au BufWritePost *.php silent! !ctags -R --languages=php & " Regenerate ctags when saving php files
       autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
       Bundle 'mikehaertl/pdv-standalone'
