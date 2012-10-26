@@ -42,12 +42,6 @@ if count(g:bundle_groups, 'programming')
     " Syntastic
     Bundle 'scrooloose/syntastic'
 
-    " Gitv
-    Bundle 'gitv'
-    nmap <leader>gv :Gitv --all<cr>
-    nmap <leader>gV :Gitv! --all<cr>
-    vmap <leader>gV :Gitv! --all<cr>
-
     " Fugitive
     Bundle 'tpope/vim-fugitive'
       "Config
