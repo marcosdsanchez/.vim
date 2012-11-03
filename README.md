@@ -12,14 +12,13 @@
 ### General
 
 * [CtrlP](https://github.com/kien/ctrlp.vim)
-* [Surround](https://github.com/kien/ctrlp.vim)
+* [Surround](https://github.com/tpope/vim-surround)
 
 ### Programming
 
 * [Gist](https://github.com/mattn/gist-vim)
 * [PowerLine](https://github.com/Lokaltog/vim-powerline)
 * [Syntastic](https://github.com/scrooloose/syntastic)
-* [Gitv](https://github.com/gregsexton/gitv)
 * [Fugitive](https://github.com/tpope/vim-fugitive)
 * [TagBar](https://github.com/majutsushi/tagbar)
 * [Ack](https://github.com/mileszs/ack.vim)
