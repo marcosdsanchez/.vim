@@ -2,6 +2,7 @@ set anti
 set guioptions=gemc " egmrt
 set vb
 set cursorline
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 if has("gui_macvim")
   set guifont=Andale\ Mono:h14
   " Remap tabs
