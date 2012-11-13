@@ -4,8 +4,8 @@ set vb
 set cursorline
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 
-nnoremap <C-S-Left> :tabprevious<CR>
-nnoremap <C-S-Right> :tabnext<CR>
+nnoremap <A-S-Left> :tabprevious<CR>
+nnoremap <A-S-Right> :tabnext<CR>
 nnoremap <C-S-t> :tabnew<CR>
 nnoremap <C-w> :tabclose<CR>
 nnoremap <C-S-w> :tabo<CR>
