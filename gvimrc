@@ -1,8 +1,17 @@
 set anti
-set guioptions=gemc " egmrt
+set guioptions=ec
 set vb
 set cursorline
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+
+nnoremap <C-S-Left> :tabprevious<CR>
+nnoremap <C-S-Right> :tabnext<CR>
+nnoremap <C-S-t> :tabnew<CR>
+nnoremap <C-w> :tabclose<CR>
+nnoremap <C-S-w> :tabo<CR>
+nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+
 if has("gui_macvim")
   set guifont=Andale\ Mono:h14
   " Remap tabs
