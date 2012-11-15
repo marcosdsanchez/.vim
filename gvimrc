@@ -6,9 +6,8 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 
 nnoremap <A-S-Left> :tabprevious<CR>
 nnoremap <A-S-Right> :tabnext<CR>
-nnoremap <C-S-t> :tabnew<CR>
-nnoremap <C-w> :tabclose<CR>
-nnoremap <C-S-w> :tabo<CR>
+nnoremap <C-t> :tabnew<CR>
+nnoremap <A-w> :tabclose<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
