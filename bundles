@@ -60,7 +60,7 @@ if count(g:bundle_groups, 'programming')
         " TagBar
         Bundle 'majutsushi/tagbar'
           "Config
-            nmap <Leader>t :TagbarToggle<CR>
+          nmap <Leader>T :TagbarToggle<CR>
     endif
     if executable('ack')
       " Ack
@@ -71,10 +71,14 @@ if count(g:bundle_groups, 'programming')
     inoremap <C-Space> <C-x><C-o>
 
     if count(g:bundle_groups, 'php')
-      au BufWritePost *.php silent! !ctags -R --languages=php & " Regenerate ctags when saving php files
+"     au BufWritePost *.php silent! !ctags -R --languages=php & " Regenerate ctags when saving php files
       autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
       Bundle 'mikehaertl/pdv-standalone'
+
+      Bundle 'vim-scripts/Jinja'
+      Bundle 'docteurklein/php-getter-setter.vim'
+      au BufRead,BufNewFile *.twig set syntax=htmljinja
 
       " PHP documenter script bound to Control-P
       autocmd FileType php inoremap <leader>pd <ESC>:call PhpDocSingle()<CR>i
@@ -86,6 +90,7 @@ if count(g:bundle_groups, 'programming')
       " insert mode
       autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
       autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
     endif
 
     if count(g:bundle_groups, 'ruby')

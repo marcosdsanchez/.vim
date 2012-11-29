@@ -32,7 +32,7 @@ filetype plugin indent on       " Load file type plugins + indentation
 
 set nostartofline               " Don’t reset cursor to start of line when moving around.
 set nowrap                      " Don't wrap lines
-set tabstop=2 shiftwidth=2      " A tab is two spaces (or set this to 4)
+set tabstop=4 shiftwidth=4 softtabstop=4      " A tab is two spaces (or set this to 4)
 set expandtab                   " Use spaces, not tabs (optional)
 set backspace=indent,eol,start  " Backspace through everything in insert mode
 set laststatus=2                " Always show the statusline
@@ -51,8 +51,8 @@ vmap < <gv                      " Keep visual mode during indenting
 au FocusLost * :silent! wall    " Save when losing focus
 
 " Mouse
-set clipboard+=unnamed " Share your clipboard with system
-set mouse=a            " Make mouse working!
+set clipboard=unnamedplus           " Share your clipboard with system
+set mouse=a                     " Make mouse working!
 
 set wildmode=list:longest,list:full  " Tab completion
 
@@ -74,7 +74,7 @@ set undodir=~/.vim/undo/
 set undofile
 
 " Shell
-set shellcmdflag=-ic                  " Make shell behave as command prompt
+set shellcmdflag=-c                  " Make shell behave as command prompt
 
 " Some personal shortcuts
 nmap <leader>hs :nohlsearch<CR>
@@ -83,7 +83,15 @@ nmap <leader>u mQviwU`Q               " upper word
 nmap <leader>l mQviwu`Q               " lower word
 nmap <leader>U mQgewvU`Q              " upper first char of word
 nmap <leader>L mQgewvu`Q              " lower first char of word
-nmap <S-Enter> O<ESC>
+
+nnoremap <leader>th  :tabfirst<CR>
+nnoremap <leader>tl  :tablast<CR>
+nnoremap <leader>tn  :tabnext<CR>
+nnoremap <leader>tp  :tabprev<CR>
+nnoremap <leader>tc  :tabclose<CR>
+nnoremap <leader>tt  :tabnew<CR>
+
+map <S-Enter> O<ESC>
 nmap <CR> o<ESC>
 
 " Functions
@@ -94,7 +102,7 @@ nmap <CR> o<ESC>
        set number
     endif
   endfunc
-  nmap <leader>tn  :call ToggleLineNumbers()<CR>                " Show/Hide line numbers
+  nmap <leader>n  :call ToggleLineNumbers()<CR>                " Show/Hide line numbers
 
   function! ToggleWrap()
     if(&wrap == 1)
@@ -103,7 +111,7 @@ nmap <CR> o<ESC>
        set wrap
     endif
   endfunc
-  nmap <leader>tw  :call ToggleWrap()<CR>                       " Set/Unset wrap
+  nmap <leader>w  :call ToggleWrap()<CR>                       " Set/Unset wrap
 
   function! ToggleRelativeNumbers()
     if(&relativenumber == 1)
@@ -112,7 +120,7 @@ nmap <CR> o<ESC>
        set relativenumber
     endif
   endfunc
-  nmap <leader>trn  :call ToggleRelativeNumbers()<CR>            " Show/Hide relative line numbers
+  nmap <leader>rn  :call ToggleRelativeNumbers()<CR>            " Show/Hide relative line numbers
 
   " Removes trailing spaces
   function! ClearWhiteSpace()
