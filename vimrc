@@ -51,7 +51,7 @@ vmap < <gv                      " Keep visual mode during indenting
 au FocusLost * :silent! wall    " Save when losing focus
 
 " Mouse
-set clipboard=unnamedplus           " Share your clipboard with system
+set clipboard=unnamed           " Share your clipboard with system
 set mouse=a                     " Make mouse working!
 
 set wildmode=list:longest,list:full  " Tab completion
@@ -93,6 +93,8 @@ nnoremap <leader>tt  :tabnew<CR>
 
 map <S-Enter> O<ESC>
 nmap <CR> o<ESC>
+
+cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))  "Avoid typo!!!
 
 " Functions
   function! ToggleLineNumbers()
