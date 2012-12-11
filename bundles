@@ -102,4 +102,8 @@ if count(g:bundle_groups, 'programming')
       autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
       autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
     endif
+
+    if count(g:bundle_groups, 'html')
+      Bundle 'mattn/zencoding-vim'
+    endif
 endif

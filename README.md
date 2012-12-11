@@ -6,7 +6,6 @@
 * Mappings similar to [Janus](https://github.com/carlhuda/janus)
 * Solarized colorscheme
 
-
 ## Plugins included
 
 ### General
@@ -23,6 +22,17 @@
 * [TagBar](https://github.com/majutsushi/tagbar)
 * [Ack](https://github.com/mileszs/ack.vim)
 
+### Html
+
+* [ZendCoding] (https://github.com/pmattn/zencoding-vim)
+
 ### PHP
 
 * [PDV-StandAlone](https://github.com/mikehaertl/pdv-standalone)
+* [GetterSetter](https://github.com/docteurklein/php-getter-setter.vim)
+* [Twig](https://github.com/vim-scripts/Jinja)
+
+### Ruby
+
+* [Haml](https://github.com/tpope/vim-haml)
+* [Slim](https://github.com/bbommarito/vim-slim)
