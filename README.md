@@ -30,7 +30,7 @@
 
 * [PDV-StandAlone](https://github.com/mikehaertl/pdv-standalone)
 * [GetterSetter](https://github.com/docteurklein/php-getter-setter.vim)
-* [Twig](https://github.com/vim-scripts/Jinja)
+* [Twig](https://github.com/beyondwords/vim-twig)
 
 ### Ruby
 
