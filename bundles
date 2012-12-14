@@ -1,7 +1,7 @@
 " vim: filetype=vim
 " list only the plugin groups you will use
 if !exists('g:bundle_groups')
-    let g:bundle_groups=['general']
+    let g:bundle_groups=['general', 'programming']
 endif
 
 if count(g:bundle_groups, 'general')
@@ -20,6 +20,10 @@ if count(g:bundle_groups, 'general')
 endif
 
 if count(g:bundle_groups, 'programming')
+  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+  autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+  autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+
   " Programming
     " Gist
     Bundle 'mattn/webapi-vim'
@@ -42,8 +46,6 @@ if count(g:bundle_groups, 'programming')
       "Config
         let g:Powerline_symbols       = 'fancy'
         let g:Powerline_cache_enabled = 0
-        " let g:Powerline_theme         = 'skwp'
-        " let g:Powerline_colorscheme   = 'skwp'
 
     " Syntastic
     Bundle 'scrooloose/syntastic'
@@ -76,9 +78,8 @@ if count(g:bundle_groups, 'programming')
 
       Bundle 'mikehaertl/pdv-standalone'
 
-      Bundle 'vim-scripts/Jinja'
+      Bundle 'beyondwords/vim-twig'
       Bundle 'docteurklein/php-getter-setter.vim'
-      au BufRead,BufNewFile *.twig set syntax=htmljinja
 
       " PHP documenter script bound to Control-P
       autocmd FileType php inoremap <leader>pd <ESC>:call PhpDocSingle()<CR>i
@@ -91,12 +92,15 @@ if count(g:bundle_groups, 'programming')
       autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
       autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
+      autocmd FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     endif
 
     if count(g:bundle_groups, 'ruby')
       Bundle 'tpope/vim-haml'
       Bundle 'bbommarito/vim-slim'
+
       "ruby
+      autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
       autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
       autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
       autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
