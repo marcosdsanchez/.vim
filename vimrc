@@ -50,11 +50,17 @@ vmap > >gv                      " Keep visual mode during indenting
 vmap < <gv                      " Keep visual mode during indenting
 au FocusLost * :silent! wall    " Save when losing focus
 
+
+if has ('x') && has ('gui') " on Linux use + register for copy-paste
+    set clipboard=unnamedplus
+elseif has ('gui') " one mac and windows, use * register for copy-paste
+    set clipboard=unnamed
+endif
+
 " Mouse
-set clipboard=unnamed           " Share your clipboard with system
 set mouse=a                     " Make mouse working!
 
-set wildmode=list:longest,list:full  " Tab completion
+set wildmode=list:longest,full  " Tab completion
 
 " Ignore
 set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.class,.svn,*.gem,*.jar
@@ -77,7 +83,7 @@ set undofile
 set shellcmdflag=-c                  " Make shell behave as command prompt
 
 " Some personal shortcuts
-nmap <leader>hs :nohlsearch<CR>
+nmap <silent> <leader>hs :nohlsearch<CR>
 nmap <leader>fef ggVG=                " format the entire file
 nmap <leader>u mQviwU`Q               " upper word
 nmap <leader>l mQviwu`Q               " lower word
@@ -91,42 +97,48 @@ nnoremap <leader>tp  :tabprev<CR>
 nnoremap <leader>tc  :tabclose<CR>
 nnoremap <leader>tt  :tabnew<CR>
 
+" Make it easy to switch it to 2 or 4 spaces
+nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>:set softtabstop=2<cr>
+nmap <leader>4 :set tabstop=4<cr>:set shiftwidth=4<cr>:set softtabstop=4<cr>
+
 map <S-Enter> O<ESC>
 nmap <CR> o<ESC>
 
+cmap w!! w !sudo tee % >/dev/null   " If I forget sudo..
 cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))  "Avoid typo!!!
+nnoremap Y y$                        " Be consistent with C and D
 
 " Functions
-  function! ToggleLineNumbers()
+function! ToggleLineNumbers()
     if(&number == 1)
-       set nonumber
+        set nonumber
     else
-       set number
+        set number
     endif
-  endfunc
-  nmap <leader>n  :call ToggleLineNumbers()<CR>                " Show/Hide line numbers
+endfunc
+nmap <leader>n  :call ToggleLineNumbers()<CR>                " Show/Hide line numbers
 
-  function! ToggleWrap()
+function! ToggleWrap()
     if(&wrap == 1)
-       set nowrap
+        set nowrap
     else
-       set wrap
+        set wrap
     endif
-  endfunc
-  nmap <leader>w  :call ToggleWrap()<CR>                       " Set/Unset wrap
+endfunc
+nmap <leader>w  :call ToggleWrap()<CR>                       " Set/Unset wrap
 
-  function! ToggleRelativeNumbers()
+function! ToggleRelativeNumbers()
     if(&relativenumber == 1)
-       set norelativenumber
+        set norelativenumber
     else
-       set relativenumber
+        set relativenumber
     endif
-  endfunc
-  nmap <leader>rn  :call ToggleRelativeNumbers()<CR>            " Show/Hide relative line numbers
+endfunc
+nmap <leader>rn  :call ToggleRelativeNumbers()<CR>            " Show/Hide relative line numbers
 
-  " Removes trailing spaces
-  function! ClearWhiteSpace()
+" Removes trailing spaces
+function! ClearWhiteSpace()
     %s/\s*$//
     ''
-  endfunc
-  nmap <leader>cw :call ClearWhiteSpace()<CR>
+endfunc
+nmap <leader>cw :call ClearWhiteSpace()<CR>

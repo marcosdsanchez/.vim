@@ -1,4 +1,5 @@
 " vim: filetype=vim
+"
 " list only the plugin groups you will use
 if !exists('g:bundle_groups')
     let g:bundle_groups=['general', 'programming']
@@ -7,101 +8,159 @@ endif
 if count(g:bundle_groups, 'general')
     " Ctrlp
     Bundle 'kien/ctrlp.vim'
-      "Config
-        let g:ctrlp_working_path_mode = 0
-        let g:ctrlp_custom_ignore = {
-              \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
-              \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.cur$\|\.swf$\|\.ico$\|\.ttf$\'
-              \ }
-        let g:ctrlp_max_files = 0
+    "Config
+    let g:ctrlp_working_path_mode = 0
+    let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
+                \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.cur$\|\.swf$\|\.ico$\|\.ttf$\'
+                \ }
+    let g:ctrlp_max_files = 0
 
     " Surround
     Bundle 'tpope/vim-surround'
 endif
 
 if count(g:bundle_groups, 'programming')
-  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-  autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-  autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
-  " Programming
+    autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+
+    set textwidth=80
+    set cc=+1
+    "  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
+    "  match OverLength /\%81v.*/
+
+    " Programming
+    set ofu=syntaxcomplete#Complete
+
+    Bundle 'honza/snipmate-snippets'
+    Bundle 'Shougo/neocomplcache'
+    " Launches neocomplcache automatically on vim startup.
+    let g:neocomplcache_enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplcache_enable_smart_case = 1
+    " Sets minimum char length of syntax keyword.
+    let g:neocomplcache_min_syntax_length = 3
+    " Define file-type dependent dictionaries.
+    let g:neocomplcache_dictionary_filetype_lists = {
+                \ 'default' : '',
+                \ 'vimshell' : $HOME.'/.vimshell_hist',
+                \ 'scheme' : $HOME.'/.gosh_completions'
+                \ }
+    " Define keyword, for minor languages
+    if !exists('g:neocomplcache_keyword_patterns')
+        let g:neocomplcache_keyword_patterns = {}
+    endif
+    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+
+    inoremap <expr><C-g>     neocomplcache#undo_completion()
+    inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+    " SuperTab like snippets behavior.
+    imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplcache#close_popup()
+    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+    Bundle 'Shougo/neosnippet.git'
+        " Plugin key-mappings.
+        imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+        smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+        " SuperTab like snippets behavior.
+        imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+        smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+        " For snippet_complete marker.
+        if has('conceal')
+          set conceallevel=2 concealcursor=i
+        endif
+
+    "Use Honza snippets
+    let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+
     " Gist
     Bundle 'mattn/webapi-vim'
     Bundle 'mattn/gist-vim'
-      "Config
-        if has("mac")
-          let g:gist_clip_command = 'pbcopy'
-        elseif has("unix")
-          let g:gist_clip_command = 'xclip -selection clipboard'
-        else
-          let g:gist_clip_command = 'putclip'
-        endif
-        let g:gist_detect_filetype = 1
-        let g:gist_show_privates = 1
-        let g:gist_post_private = 1
+    "Config
+    if has("mac")
+        let g:gist_clip_command = 'pbcopy'
+    elseif has("unix")
+        let g:gist_clip_command = 'xclip -selection clipboard'
+    else
+        let g:gist_clip_command = 'putclip'
+    endif
+    let g:gist_detect_filetype = 1
+    let g:gist_show_privates = 1
+    let g:gist_post_private = 1
 
     " Powerline
     Bundle 'Lokaltog/vim-powerline'
-      "Config
-        let g:Powerline_symbols       = 'fancy'
-        let g:Powerline_cache_enabled = 0
+    "Config
+    let g:Powerline_symbols       = 'fancy'
+    let g:Powerline_cache_enabled = 0
 
     " Syntastic
     Bundle 'scrooloose/syntastic'
-
+    "let g:syntastic_phpmd_disable = 1
     " Fugitive
     Bundle 'tpope/vim-fugitive'
 
     if executable('ctags')
         " TagBar
         Bundle 'majutsushi/tagbar'
-          "Config
-          nmap <Leader>T :TagbarToggle<CR>
+        "Config
+        nmap <Leader>T :TagbarToggle<CR>
     endif
     if executable('ack')
-      " Ack
-      Bundle 'mileszs/ack.vim'
+        " Ack
+        Bundle 'mileszs/ack.vim'
     endif
 
-    " Autocomplete with Ctrl+Space
-    inoremap <C-Space> <C-x><C-o>
-
     if count(g:bundle_groups, 'php')
-"     au BufWritePost *.php silent! !ctags -R --languages=php & " Regenerate ctags when saving php files
-      autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+        "     au BufWritePost *.php silent! !ctags -R --languages=php & " Regenerate ctags when saving php files
+        Bundle 'mikehaertl/pdv-standalone'
 
-      Bundle 'mikehaertl/pdv-standalone'
+        Bundle 'beyondwords/vim-twig'
+        Bundle 'docteurklein/php-getter-setter.vim'
 
-      Bundle 'beyondwords/vim-twig'
-      Bundle 'docteurklein/php-getter-setter.vim'
+        " PHP documenter script bound to Control-P
+        autocmd FileType php inoremap <leader>pd <ESC>:call PhpDocSingle()<CR>i
+        autocmd FileType php nnoremap <leader>pd :call PhpDocSingle()<CR>
+        autocmd FileType php vnoremap <leader>pd :call PhpDocRange()<CR>
 
-      " PHP documenter script bound to Control-P
-      autocmd FileType php inoremap <leader>pd <ESC>:call PhpDocSingle()<CR>i
-      autocmd FileType php nnoremap <leader>pd :call PhpDocSingle()<CR>
-      autocmd FileType php vnoremap <leader>pd :call PhpDocRange()<CR>
+        " If you prefer the Omni-Completion tip window to close when a selection is
+        " made, these lines close it on movement in insert mode or when leaving
+        " insert mode
+        autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+        autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-      " If you prefer the Omni-Completion tip window to close when a selection is
-      " made, these lines close it on movement in insert mode or when leaving
-      " insert mode
-      autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-      autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+        autocmd FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
-      autocmd FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     endif
 
     if count(g:bundle_groups, 'ruby')
-      Bundle 'tpope/vim-haml'
-      Bundle 'bbommarito/vim-slim'
+        Bundle 'tpope/vim-haml'
+        Bundle 'bbommarito/vim-slim'
 
-      "ruby
-      autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-      autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-      autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-      autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-      autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+        "ruby
+        autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+        autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+        autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+        autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
     endif
 
     if count(g:bundle_groups, 'html')
-      Bundle 'mattn/zencoding-vim'
+        Bundle 'mattn/zencoding-vim'
     endif
 endif
