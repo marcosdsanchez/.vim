@@ -90,12 +90,13 @@ nmap <leader>l mQviwu`Q               " lower word
 nmap <leader>U mQgewvU`Q              " upper first char of word
 nmap <leader>L mQgewvu`Q              " lower first char of word
 
-nnoremap <leader>th  :tabfirst<CR>
-nnoremap <leader>tl  :tablast<CR>
-nnoremap <leader>tn  :tabnext<CR>
-nnoremap <leader>tp  :tabprev<CR>
-nnoremap <leader>tc  :tabclose<CR>
-nnoremap <leader>tt  :tabnew<CR>
+nnoremap <silent> <leader>th  :tabfirst<CR>
+nnoremap <silent> <leader>tl  :tablast<CR>
+nnoremap <silent> <leader>tn  :tabnext<CR>
+nnoremap <silent> <leader>tp  :tabprev<CR>
+nnoremap <silent> <leader>tc  :tabclose<CR>
+nnoremap <silent> <leader>tt  :tabnew<CR>
+nnoremap <silent> <leader>to  :tabonly<CR>
 
 " Make it easy to switch it to 2 or 4 spaces
 nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>:set softtabstop=2<cr>
