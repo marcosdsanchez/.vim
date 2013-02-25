@@ -26,7 +26,7 @@ if count(g:bundle_groups, 'programming')
     autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
-    set textwidth=80
+    set textwidth=120
     set cc=+1
     "  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
     "  match OverLength /\%81v.*/
