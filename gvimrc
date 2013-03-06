@@ -2,7 +2,7 @@ set anti
 set guioptions=ec
 set vb
 set cursorline
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 13
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
 
 nnoremap <A-S-Left> :tabprevious<CR>
 nnoremap <A-S-Right> :tabnext<CR>
