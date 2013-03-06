@@ -22,11 +22,12 @@ endif
 
 if count(g:bundle_groups, 'programming')
 
+    au FocusLost * :silent! wall    " Save when losing focus
     autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
-    set textwidth=80
+    set textwidth=120
     set cc=+1
     "  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
     "  match OverLength /\%81v.*/
@@ -112,7 +113,6 @@ if count(g:bundle_groups, 'programming')
 
     " Syntastic
     Bundle 'scrooloose/syntastic'
-    "let g:syntastic_phpmd_disable = 1
     " Fugitive
     Bundle 'tpope/vim-fugitive'
 
@@ -151,9 +151,11 @@ if count(g:bundle_groups, 'programming')
 
     if count(g:bundle_groups, 'ruby')
         Bundle 'tpope/vim-haml'
-        Bundle 'bbommarito/vim-slim'
+        Bundle 'slim-template/vim-slim'
 
         "ruby
+
+        au BufNewFile,BufRead *.slim set ft=slim
         autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
         autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
         autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
