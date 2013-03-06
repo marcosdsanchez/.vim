@@ -46,11 +46,6 @@ set lazyredraw                  " Stop vim from redrawing the screen during comp
 set list                        " Show trailing whitespace
 set listchars=tab:\ ·,trail:·   " Show trailing whitespace
 
-vmap > >gv                      " Keep visual mode during indenting
-vmap < <gv                      " Keep visual mode during indenting
-au FocusLost * :silent! wall    " Save when losing focus
-
-
 if has ('x') && has ('gui') " on Linux use + register for copy-paste
     set clipboard=unnamedplus
 elseif has ('gui') " one mac and windows, use * register for copy-paste
@@ -97,6 +92,10 @@ nnoremap <silent> <leader>tp  :tabprev<CR>
 nnoremap <silent> <leader>tc  :tabclose<CR>
 nnoremap <silent> <leader>tt  :tabnew<CR>
 nnoremap <silent> <leader>to  :tabonly<CR>
+let g:lasttab = 1
+au TabLeave * let g:lasttab = tabpagenr()
+nmap <Leader>tr :exe "tabn ".g:lasttab<CR>
+
 
 " Make it easy to switch it to 2 or 4 spaces
 nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>:set softtabstop=2<cr>
