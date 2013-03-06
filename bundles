@@ -72,7 +72,7 @@ if count(g:bundle_groups, 'programming')
     inoremap <expr><C-y>  neocomplcache#close_popup()
     inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-    Bundle 'Shougo/neosnippet.git'
+    Bundle 'Shougo/neosnippet'
         " Plugin key-mappings.
         imap <C-k>     <Plug>(neosnippet_expand_or_jump)
         smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -92,6 +92,10 @@ if count(g:bundle_groups, 'programming')
     " Gist
     Bundle 'mattn/webapi-vim'
     Bundle 'mattn/gist-vim'
+
+    " GitGutter
+    Bundle 'airblade/vim-gitgutter'
+
     "Config
     if has("mac")
         let g:gist_clip_command = 'pbcopy'

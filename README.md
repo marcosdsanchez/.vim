@@ -16,6 +16,7 @@
 ### Programming
 
 * [Gist](https://github.com/mattn/gist-vim)
+* [GitGutter](https://github.com/airblade/vim-gitgutter)
 * [PowerLine](https://github.com/Lokaltog/vim-powerline)
 * [Syntastic](https://github.com/scrooloose/syntastic)
 * [Fugitive](https://github.com/tpope/vim-fugitive)
