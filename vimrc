@@ -80,6 +80,7 @@ set shellcmdflag=-c                  " Make shell behave as command prompt
 " Some personal shortcuts
 nmap <silent> <leader>hs :nohlsearch<CR>
 nmap <leader>fef ggVG=                " format the entire file
+nmap <leader>a ggVG                   " select all
 nmap <leader>u mQviwU`Q               " upper word
 nmap <leader>l mQviwu`Q               " lower word
 nmap <leader>U mQgewvU`Q              " upper first char of word
