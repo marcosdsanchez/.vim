@@ -157,13 +157,12 @@ if count(g:bundle_groups, 'programming')
         Bundle 'tpope/vim-haml'
         Bundle 'slim-template/vim-slim'
 
-        "ruby
-
         au BufNewFile,BufRead *.slim set ft=slim
         autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
         autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
         autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
         autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+        runtime macros/matchit.vim
     endif
 
     if count(g:bundle_groups, 'html')
