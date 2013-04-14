@@ -163,6 +163,10 @@ if count(g:bundle_groups, 'programming')
         autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
         autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
         runtime macros/matchit.vim
+        Bundle 'thoughtbot/vim-rspec'
+        map <Leader>t :call RunCurrentSpecFile()<CR>
+        map <Leader>s :call RunNearestSpec()<CR>
+        map <Leader>l :call RunLastSpec()<CR>
     endif
 
     if count(g:bundle_groups, 'html')
