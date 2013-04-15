@@ -11,17 +11,17 @@ if count(g:bundle_groups, 'general')
     "Config
     let g:ctrlp_working_path_mode = 0
     let g:ctrlp_custom_ignore = {
-                \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
+                \ 'dir':  '\v[\/](\.git\|\.hg\|\.svn)$',
                 \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.cur$\|\.swf$\|\.ico$\|\.ttf$\'
                 \ }
     let g:ctrlp_max_files = 0
 
     " Surround
     Bundle 'tpope/vim-surround'
+    Bundle 'terryma/vim-multiple-cursors'
 endif
 
 if count(g:bundle_groups, 'programming')
-
     au FocusLost * :silent! wall    " Save when losing focus
     autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
@@ -55,7 +55,6 @@ if count(g:bundle_groups, 'programming')
     endif
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-
     inoremap <expr><C-g>     neocomplcache#undo_completion()
     inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
@@ -74,18 +73,18 @@ if count(g:bundle_groups, 'programming')
     inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
     Bundle 'Shougo/neosnippet'
-        " Plugin key-mappings.
-        imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-        smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    " Plugin key-mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
-        " SuperTab like snippets behavior.
-        imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-        smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    " SuperTab like snippets behavior.
+    imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-        " For snippet_complete marker.
-        if has('conceal')
-          set conceallevel=2 concealcursor=i
-        endif
+    " For snippet_complete marker.
+    if has('conceal')
+      set conceallevel=2 concealcursor=i
+    endif
 
     "Use Honza snippets
     let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
