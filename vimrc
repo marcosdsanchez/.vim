@@ -12,7 +12,9 @@ Bundle 'gmarik/vundle'
 "Background
 Bundle 'altercation/vim-colors-solarized'
 syntax enable
+set t_Co=256
 let g:solarized_termtrans=1
+let g:solarized_termcolors = 256
 let g:solarized_contrast="high"
 let g:solarized_visibility="high"
 colorscheme solarized
@@ -48,8 +50,8 @@ set listchars=tab:\ ·,trail:·   " Show trailing whitespace
 
 if has ('x') && has ('gui') " on Linux use + register for copy-paste
     set clipboard=unnamedplus
-elseif has ('gui') " one mac and windows, use * register for copy-paste
-    set clipboard=unnamed
+else " one mac and windows, use * register for copy-paste
+    set clipboard+=unnamed
 endif
 
 " Mouse
@@ -81,21 +83,19 @@ set shellcmdflag=-c                  " Make shell behave as command prompt
 nmap <silent> <leader>hs :nohlsearch<CR>
 nmap <leader>fef ggVG=                " format the entire file
 nmap <leader>a ggVG                   " select all
-nmap <leader>u mQviwU`Q               " upper word
-nmap <leader>l mQviwu`Q               " lower word
-nmap <leader>U mQgewvU`Q              " upper first char of word
-nmap <leader>L mQgewvu`Q              " lower first char of word
 
-nnoremap <silent> <leader>th  :tabfirst<CR>
+nnoremap <silent> <leader>tf  :tabfirst<CR>
 nnoremap <silent> <leader>tl  :tablast<CR>
 nnoremap <silent> <leader>tn  :tabnext<CR>
+nnoremap <silent> <leader>ty  :tabnext<CR>
 nnoremap <silent> <leader>tp  :tabprev<CR>
+nnoremap <silent> <leader>tr  :tabprev<CR>
 nnoremap <silent> <leader>tc  :tabclose<CR>
 nnoremap <silent> <leader>tt  :tabnew<CR>
 nnoremap <silent> <leader>to  :tabonly<CR>
 let g:lasttab = 1
 au TabLeave * let g:lasttab = tabpagenr()
-nmap <Leader>tr :exe "tabn ".g:lasttab<CR>
+nmap <Leader>tb :exe "tabn ".g:lasttab<CR>
 
 
 " Make it easy to switch it to 2 or 4 spaces

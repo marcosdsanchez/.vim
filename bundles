@@ -18,7 +18,7 @@ if count(g:bundle_groups, 'general')
 
     " Surround
     Bundle 'tpope/vim-surround'
-    Bundle 'terryma/vim-multiple-cursors'
+"    Bundle 'terryma/vim-multiple-cursors'
 endif
 
 if count(g:bundle_groups, 'programming')
@@ -170,5 +170,7 @@ if count(g:bundle_groups, 'programming')
 
     if count(g:bundle_groups, 'html')
         Bundle 'mattn/zencoding-vim'
+        Bundle 'ap/vim-css-color'
+        Bundle 'groenewege/vim-less'
     endif
 endif
