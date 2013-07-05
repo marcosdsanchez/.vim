@@ -105,7 +105,8 @@ nmap <leader>4 :set tabstop=4<cr>:set shiftwidth=4<cr>:set softtabstop=4<cr>
 map <S-Enter> O<ESC>
 nmap <CR> o<ESC>
 
-cmap w!! w !sudo tee % >/dev/null   " If I forget sudo..
+" If I forget sudo..
+cmap w!! w !sudo tee % >/dev/null
 cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))  "Avoid typo!!!
 nnoremap Y y$                        " Be consistent with C and D
 
