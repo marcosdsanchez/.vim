@@ -50,8 +50,8 @@ set listchars=tab:\ ·,trail:·   " Show trailing whitespace
 
 if has ('x') && has ('gui') " on Linux use + register for copy-paste
     set clipboard=unnamedplus
-else " one mac and windows, use * register for copy-paste
-    set clipboard+=unnamed
+else " on mac and windows, use * register for copy-paste
+    set clipboard=unnamed
 endif
 
 " Mouse
