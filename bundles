@@ -14,11 +14,10 @@ if count(g:bundle_groups, 'general')
                 \ 'dir':  '\v[\/](\.git\|\.hg\|\.svn)$',
                 \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.cur$\|\.swf$\|\.ico$\|\.ttf$\'
                 \ }
-    let g:ctrlp_max_files = 0
+"    let g:ctrlp_max_files = 0
 
     " Surround
     Bundle 'tpope/vim-surround'
-"    Bundle 'terryma/vim-multiple-cursors'
 endif
 
 if count(g:bundle_groups, 'programming')
@@ -33,38 +32,33 @@ if count(g:bundle_groups, 'programming')
     "  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
     "  match OverLength /\%81v.*/
 
+    Bundle 'vim-scripts/AutoTag'
+
     " Programming
     set ofu=syntaxcomplete#Complete
 
-    Bundle 'honza/snipmate-snippets'
     Bundle 'Shougo/neocomplcache'
-    " Launches neocomplcache automatically on vim startup.
     let g:neocomplcache_enable_at_startup = 1
-    " Use smartcase.
+    let g:neocomplcache_enable_camel_case_completion = 1
+    let g:neocomplcache_enable_underbar_completion = 1
+    let g:neocomplcache_enable_auto_delimiter = 1
     let g:neocomplcache_enable_smart_case = 1
-    " Sets minimum char length of syntax keyword.
-    let g:neocomplcache_min_syntax_length = 3
-    " Define file-type dependent dictionaries.
-    let g:neocomplcache_dictionary_filetype_lists = {
-                \ 'default' : '',
-                \ 'vimshell' : $HOME.'/.vimshell_hist',
-                \ 'scheme' : $HOME.'/.gosh_completions'
-                \ }
-    " Define keyword, for minor languages
-    if !exists('g:neocomplcache_keyword_patterns')
-        let g:neocomplcache_keyword_patterns = {}
-    endif
-    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+    let g:neocomplcache_enable_auto_select = 1
+    let g:neocomplcache_max_list = 10
 
-    inoremap <expr><C-g>     neocomplcache#undo_completion()
-    inoremap <expr><C-l>     neocomplcache#complete_common_string()
+    let g:neocomplcache_force_overwrite_completefunc = 1
+    let g:acp_enableAtStartup = 0
 
-    " SuperTab like snippets behavior.
-    imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    " This makes sure we use neocomplcache completefunc instead of
+    " the one in rails.vim, otherwise this plugin will crap out
+    let g:neocomplcache_force_overwrite_completefunc = 1
 
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
-    inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    endfunction
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     " <C-h>, <BS>: close popup and delete backword char.
@@ -73,22 +67,19 @@ if count(g:bundle_groups, 'programming')
     inoremap <expr><C-y>  neocomplcache#close_popup()
     inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-    Bundle 'Shougo/neosnippet'
-    " Plugin key-mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    if !exists('g:neocomplcache_keyword_patterns')
+      let g:neocomplcache_keyword_patterns = {}
+    endif
+    let g:neocomplcache_keyword_patterns._ = '\h\w*'
 
-    " SuperTab like snippets behavior.
-    imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-    " For snippet_complete marker.
-    if has('conceal')
-      set conceallevel=2 concealcursor=i
+    " Enable heavy omni completion.
+    if !exists('g:neocomplcache_omni_patterns')
+      let g:neocomplcache_omni_patterns = {}
     endif
 
-    "Use Honza snippets
-    let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+    " Enable omni completion.
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
     " Gist
     Bundle 'mattn/webapi-vim'
@@ -111,7 +102,6 @@ if count(g:bundle_groups, 'programming')
 
     " Powerline
     Bundle 'Lokaltog/vim-powerline'
-    "Config
     let g:Powerline_symbols       = 'fancy'
     let g:Powerline_cache_enabled = 0
 
@@ -132,23 +122,23 @@ if count(g:bundle_groups, 'programming')
     endif
 
     if count(g:bundle_groups, 'php')
-        "     au BufWritePost *.php silent! !ctags -R --languages=php & " Regenerate ctags when saving php files
         Bundle 'mikehaertl/pdv-standalone'
-
-        Bundle 'beyondwords/vim-twig'
-        Bundle 'docteurklein/php-getter-setter.vim'
-
         " PHP documenter script bound to Control-P
         autocmd FileType php inoremap <leader>pd <ESC>:call PhpDocSingle()<CR>i
         autocmd FileType php nnoremap <leader>pd :call PhpDocSingle()<CR>
         autocmd FileType php vnoremap <leader>pd :call PhpDocRange()<CR>
 
-        " If you prefer the Omni-Completion tip window to close when a selection is
-        " made, these lines close it on movement in insert mode or when leaving
-        " insert mode
-        autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-        autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+        Bundle 'beyondwords/vim-twig'
+        Bundle 'docteurklein/php-getter-setter.vim'
+        Bundle 'arnaud-lb/vim-php-namespace'
+        inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
+        noremap <Leader>u :call PhpInsertUse()<CR>
+        inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+        noremap <Leader>e :call PhpExpandClass()<CR>
 
+        set tags+=./tags.vendors,tags.vendors
+        au FileType php set omnifunc=phpcomplete#CompletePHP
+        let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
         autocmd FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 
     endif
@@ -164,14 +154,23 @@ if count(g:bundle_groups, 'programming')
         autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
         runtime macros/matchit.vim
         Bundle 'thoughtbot/vim-rspec'
+        Bundle 'tpope/vim-rbenv'
+        Bundle 'tpope/rbenv-ctags'
+"        Bundle 'tpope/vim-bundler'
         map <Leader>t :call RunCurrentSpecFile()<CR>
         map <Leader>s :call RunNearestSpec()<CR>
         map <Leader>l :call RunLastSpec()<CR>
+        autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
     endif
 
     if count(g:bundle_groups, 'html')
-        Bundle 'mattn/zencoding-vim'
+        Bundle 'mattn/emmet-vim'
         Bundle 'ap/vim-css-color'
         Bundle 'groenewege/vim-less'
+        Bundle 'kchmck/vim-coffee-script'
+        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     endif
 endif
