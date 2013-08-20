@@ -22,6 +22,7 @@ if count(g:bundle_groups, 'general')
 endif
 
 if count(g:bundle_groups, 'programming')
+    Bundle 'scrooloose/nerdtree'
     au FocusLost * :silent! wall    " Save when losing focus
     autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
     autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
