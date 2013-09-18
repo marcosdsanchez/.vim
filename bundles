@@ -1,176 +1,161 @@
 " vim: filetype=vim
-"
-" list only the plugin groups you will use
-if !exists('g:bundle_groups')
-    let g:bundle_groups=['general', 'programming']
-endif
 
-if count(g:bundle_groups, 'general')
-    " Ctrlp
-    Bundle 'kien/ctrlp.vim'
-    "Config
-    let g:ctrlp_working_path_mode = 0
-    let g:ctrlp_custom_ignore = {
-                \ 'dir':  '\v[\/](\.git\|\.hg\|\.svn)$',
-                \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.cur$\|\.swf$\|\.ico$\|\.ttf$\'
-                \ }
+" Ctrlp
+Bundle 'kien/ctrlp.vim'
+"Config
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/](\.git\|\.hg\|\.svn)$',
+            \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.cur$\|\.swf$\|\.ico$\|\.ttf$\'
+            \ }
 "    let g:ctrlp_max_files = 0
 
-    " Surround
-    Bundle 'tpope/vim-surround'
+" Surround
+Bundle 'tpope/vim-surround'
+
+Bundle 'scrooloose/nerdtree'
+au FocusLost * :silent! wall    " Save when losing focus
+autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+
+set textwidth=120
+set cc=+1
+"  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
+"  match OverLength /\%81v.*/
+
+Bundle 'vim-scripts/AutoTag'
+" Programming
+set ofu=syntaxcomplete#Complete
+
+ Bundle 'Shougo/neocomplete.vim'
+ let g:neocomplete#enable_at_startup = 1
+ let g:neocomplete#enable_camel_case_completion = 1
+ let g:neocomplete#enable_underbar_completion = 1
+ let g:neocomplete#enable_auto_delimiter = 1
+ let g:neocomplete#enable_smart_case = 1
+ let g:neocomplete#enable_auto_select = 1
+ let g:neocomplete#max_list = 10
+
+ let g:neocomplete#force_overwrite_completefunc = 1
+ let g:acp_enableAtStartup = 0
+
+ " This makes sure we use neocomplete completefunc instead of
+ " the one in rails.vim, otherwise this plugin will crap out
+ let g:neocomplete#force_overwrite_completefunc = 1
+
+ " Recommended key-mappings.
+ " <CR>: close popup and save indent.
+ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+ function! s:my_cr_function()
+     return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+ endfunction
+ " <TAB>: completion.
+ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+ " <C-h>, <BS>: close popup and delete backword char.
+ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+ inoremap <expr><C-y>  neocomplete#close_popup()
+ inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+ if !exists('g:neocomplete#keyword_patterns')
+     let g:neocomplete#keyword_patterns = {}
+ endif
+ let g:neocomplete#keyword_patterns._ = '\h\w*'
+
+ " Enable heavy omni completion.
+ if !exists('g:neocomplete#omni_patterns')
+     let g:neocomplete#omni_patterns = {}
+ endif
+
+" Enable omni completion.
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Gist
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
+
+" GitGutter
+Bundle 'airblade/vim-gitgutter'
+
+"Config
+if has("mac")
+    let g:gist_clip_command = 'pbcopy'
+elseif has("unix")
+    let g:gist_clip_command = 'xclip -selection clipboard'
+else
+    let g:gist_clip_command = 'putclip'
 endif
+let g:gist_detect_filetype = 1
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
 
-if count(g:bundle_groups, 'programming')
-    Bundle 'scrooloose/nerdtree'
-    au FocusLost * :silent! wall    " Save when losing focus
-    autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-    autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-    autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+" Powerline
+Bundle 'Lokaltog/vim-powerline'
+let g:Powerline_symbols       = 'fancy'
+let g:Powerline_cache_enabled = 0
 
-    set textwidth=120
-    set cc=+1
-    "  highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
-    "  match OverLength /\%81v.*/
+" Syntastic
+Bundle 'scrooloose/syntastic'
+let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 
-    Bundle 'vim-scripts/AutoTag'
+" Fugitive
+Bundle 'tpope/vim-fugitive'
 
-    " Programming
-    set ofu=syntaxcomplete#Complete
-
-    Bundle 'Shougo/neocomplcache'
-    let g:neocomplcache_enable_at_startup = 1
-    let g:neocomplcache_enable_camel_case_completion = 1
-    let g:neocomplcache_enable_underbar_completion = 1
-    let g:neocomplcache_enable_auto_delimiter = 1
-    let g:neocomplcache_enable_smart_case = 1
-    let g:neocomplcache_enable_auto_select = 1
-    let g:neocomplcache_max_list = 10
-
-    let g:neocomplcache_force_overwrite_completefunc = 1
-    let g:acp_enableAtStartup = 0
-
-    " This makes sure we use neocomplcache completefunc instead of
-    " the one in rails.vim, otherwise this plugin will crap out
-    let g:neocomplcache_force_overwrite_completefunc = 1
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplcache#close_popup()
-    inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-    if !exists('g:neocomplcache_keyword_patterns')
-      let g:neocomplcache_keyword_patterns = {}
-    endif
-    let g:neocomplcache_keyword_patterns._ = '\h\w*'
-
-    " Enable heavy omni completion.
-    if !exists('g:neocomplcache_omni_patterns')
-      let g:neocomplcache_omni_patterns = {}
-    endif
-
-    " Enable omni completion.
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-    " Gist
-    Bundle 'mattn/webapi-vim'
-    Bundle 'mattn/gist-vim'
-
-    " GitGutter
-    Bundle 'airblade/vim-gitgutter'
-
+if executable('ctags')
+    " TagBar
+    Bundle 'majutsushi/tagbar'
     "Config
-    if has("mac")
-        let g:gist_clip_command = 'pbcopy'
-    elseif has("unix")
-        let g:gist_clip_command = 'xclip -selection clipboard'
-    else
-        let g:gist_clip_command = 'putclip'
-    endif
-    let g:gist_detect_filetype = 1
-    let g:gist_show_privates = 1
-    let g:gist_post_private = 1
-
-    " Powerline
-    Bundle 'Lokaltog/vim-powerline'
-    let g:Powerline_symbols       = 'fancy'
-    let g:Powerline_cache_enabled = 0
-
-    " Syntastic
-    Bundle 'scrooloose/syntastic'
-    " Fugitive
-    Bundle 'tpope/vim-fugitive'
-
-    if executable('ctags')
-        " TagBar
-        Bundle 'majutsushi/tagbar'
-        "Config
-        nmap <Leader>T :TagbarToggle<CR>
-    endif
-    if executable('ack')
-        " Ack
-        Bundle 'mileszs/ack.vim'
-    endif
-
-    if count(g:bundle_groups, 'php')
-        Bundle 'mikehaertl/pdv-standalone'
-        " PHP documenter script bound to Control-P
-        autocmd FileType php inoremap <leader>pd <ESC>:call PhpDocSingle()<CR>i
-        autocmd FileType php nnoremap <leader>pd :call PhpDocSingle()<CR>
-        autocmd FileType php vnoremap <leader>pd :call PhpDocRange()<CR>
-
-        Bundle 'beyondwords/vim-twig'
-        Bundle 'docteurklein/php-getter-setter.vim'
-        Bundle 'arnaud-lb/vim-php-namespace'
-        inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
-        noremap <Leader>u :call PhpInsertUse()<CR>
-        inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
-        noremap <Leader>e :call PhpExpandClass()<CR>
-
-        set tags+=./tags.vendors,tags.vendors
-        au FileType php set omnifunc=phpcomplete#CompletePHP
-        let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        autocmd FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-
-    endif
-
-    if count(g:bundle_groups, 'ruby')
-        Bundle 'tpope/vim-haml'
-        Bundle 'slim-template/vim-slim'
-
-        au BufNewFile,BufRead *.slim set ft=slim
-        autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-        autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-        autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-        autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-        runtime macros/matchit.vim
-        Bundle 'thoughtbot/vim-rspec'
-        Bundle 'tpope/vim-rbenv'
-        Bundle 'tpope/rbenv-ctags'
-"        Bundle 'tpope/vim-bundler'
-        map <Leader>t :call RunCurrentSpecFile()<CR>
-        map <Leader>s :call RunNearestSpec()<CR>
-        map <Leader>l :call RunLastSpec()<CR>
-        autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-    endif
-
-    if count(g:bundle_groups, 'html')
-        Bundle 'mattn/emmet-vim'
-        Bundle 'ap/vim-css-color'
-        Bundle 'groenewege/vim-less'
-        Bundle 'kchmck/vim-coffee-script'
-        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    endif
+    nmap <Leader>T :TagbarToggle<CR>
 endif
+if executable('ack')
+    " Ack
+    Bundle 'mileszs/ack.vim'
+endif
+
+Bundle 'mikehaertl/pdv-standalone'
+" PHP documenter script bound to Control-P
+autocmd FileType php inoremap <leader>pd <ESC>:call PhpDocSingle()<CR>i
+autocmd FileType php nnoremap <leader>pd :call PhpDocSingle()<CR>
+autocmd FileType php vnoremap <leader>pd :call PhpDocRange()<CR>
+
+Bundle 'beyondwords/vim-twig'
+Bundle 'docteurklein/php-getter-setter.vim'
+Bundle 'arnaud-lb/vim-php-namespace'
+inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
+noremap <Leader>u :call PhpInsertUse()<CR>
+inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+noremap <Leader>e :call PhpExpandClass()<CR>
+
+set tags+=./tags.vendors,tags.vendors
+au FileType php set omnifunc=phpcomplete#CompletePHP
+let g:neocomplete#omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+autocmd FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+
+Bundle 'tpope/vim-haml'
+Bundle 'slim-template/vim-slim'
+
+au BufNewFile,BufRead *.slim set ft=slim
+autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+runtime macros/matchit.vim
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'tpope/vim-rbenv'
+Bundle 'tpope/rbenv-ctags'
+Bundle 'tpope/vim-bundler'
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplete#omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+Bundle 'mattn/emmet-vim'
+Bundle 'ap/vim-css-color'
+Bundle 'groenewege/vim-less'
+Bundle 'kchmck/vim-coffee-script'
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS

@@ -144,3 +144,8 @@ function! ClearWhiteSpace()
     ''
 endfunc
 nmap <leader>cw :call ClearWhiteSpace()<CR>
+
+" Use local bundles if available
+if filereadable(expand("~/.vim/bundles"))
+    source ~/.vim/bundles
+endif
