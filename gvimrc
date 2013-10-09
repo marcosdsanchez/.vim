@@ -12,7 +12,7 @@ nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
 if has("gui_macvim")
-  set guifont=Andale\ Mono:h14
+  set guifont=Andale\ Mono:h13
   " Remap tabs
   macmenu &File.New\ Tab key=<D-t>
   macmenu &File.Open\ Tab\.\.\. key=<D-^>

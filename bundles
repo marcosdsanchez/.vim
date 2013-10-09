@@ -15,9 +15,6 @@ Bundle 'tpope/vim-surround'
 
 Bundle 'scrooloose/nerdtree'
 au FocusLost * :silent! wall    " Save when losing focus
-autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
 set textwidth=120
 set cc=+1
@@ -28,49 +25,46 @@ Bundle 'vim-scripts/AutoTag'
 " Programming
 set ofu=syntaxcomplete#Complete
 
- Bundle 'Shougo/neocomplete.vim'
- let g:neocomplete#enable_at_startup = 1
- let g:neocomplete#enable_camel_case_completion = 1
- let g:neocomplete#enable_underbar_completion = 1
- let g:neocomplete#enable_auto_delimiter = 1
- let g:neocomplete#enable_smart_case = 1
- let g:neocomplete#enable_auto_select = 1
- let g:neocomplete#max_list = 10
+Bundle 'Shougo/neocomplete.vim'
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_camel_case_completion = 1
+let g:neocomplete#enable_underbar_completion = 1
+let g:neocomplete#enable_auto_delimiter = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#max_list = 10
 
- let g:neocomplete#force_overwrite_completefunc = 1
- let g:acp_enableAtStartup = 0
+let g:acp_enableAtStartup = 0
 
- " This makes sure we use neocomplete completefunc instead of
- " the one in rails.vim, otherwise this plugin will crap out
- let g:neocomplete#force_overwrite_completefunc = 1
+" This makes sure we use neocomplete completefunc instead of
+" the one in rails.vim, otherwise this plugin will crap out
+let g:neocomplete#force_overwrite_completefunc = 1
 
- " Recommended key-mappings.
- " <CR>: close popup and save indent.
- inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
- function! s:my_cr_function()
-     return pumvisible() ? neocomplete#close_popup() : "\<CR>"
- endfunction
- " <TAB>: completion.
- inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
- " <C-h>, <BS>: close popup and delete backword char.
- inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
- inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
- inoremap <expr><C-y>  neocomplete#close_popup()
- inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+    return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 
- if !exists('g:neocomplete#keyword_patterns')
-     let g:neocomplete#keyword_patterns = {}
- endif
- let g:neocomplete#keyword_patterns._ = '\h\w*'
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns._ = '\h\w*'
 
- " Enable heavy omni completion.
- if !exists('g:neocomplete#omni_patterns')
-     let g:neocomplete#omni_patterns = {}
- endif
+" Enable heavy omni completion.
+if !exists('g:neocomplete#omni_patterns')
+    let g:neocomplete#omni_patterns = {}
+endif
 
 " Enable omni completion.
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Gist
 Bundle 'mattn/webapi-vim'
@@ -108,39 +102,31 @@ if executable('ctags')
     Bundle 'majutsushi/tagbar'
     "Config
     nmap <Leader>T :TagbarToggle<CR>
+    set tags+=/.git/tags,/.git/tags.vendors,./tags.vendors,tags.vendors
 endif
 if executable('ack')
     " Ack
     Bundle 'mileszs/ack.vim'
 endif
 
+Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'mikehaertl/pdv-standalone'
 " PHP documenter script bound to Control-P
 autocmd FileType php inoremap <leader>pd <ESC>:call PhpDocSingle()<CR>i
 autocmd FileType php nnoremap <leader>pd :call PhpDocSingle()<CR>
 autocmd FileType php vnoremap <leader>pd :call PhpDocRange()<CR>
 
-Bundle 'beyondwords/vim-twig'
 Bundle 'docteurklein/php-getter-setter.vim'
 Bundle 'arnaud-lb/vim-php-namespace'
 inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
 noremap <Leader>u :call PhpInsertUse()<CR>
 inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
-
-set tags+=./tags.vendors,tags.vendors
-au FileType php set omnifunc=phpcomplete#CompletePHP
-let g:neocomplete#omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-autocmd FileType php setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+"let g:neocomplete#omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 Bundle 'tpope/vim-haml'
 Bundle 'slim-template/vim-slim'
 
-au BufNewFile,BufRead *.slim set ft=slim
-autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 runtime macros/matchit.vim
 Bundle 'thoughtbot/vim-rspec'
 Bundle 'tpope/vim-rbenv'
@@ -149,13 +135,55 @@ Bundle 'tpope/vim-bundler'
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:neocomplete#omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 Bundle 'mattn/emmet-vim'
 Bundle 'ap/vim-css-color'
 Bundle 'groenewege/vim-less'
 Bundle 'kchmck/vim-coffee-script'
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+
+
+if has('autocmd')
+
+"    autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+"    autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+"    autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+"
+"    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+"    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    augroup FileTypes
+        autocmd!
+        au BufRead,BufNewFile *.php         setlocal filetype=php iskeyword-=$
+        au BufRead,BufNewFile *.php         inoremap <buffer> § $
+        au BufRead,BufNewFile *.php         inoremap <buffer> ± ->
+        au BufRead,BufNewFile *.php         inoremap <buffer> §§ $this->
+        au BufRead,BufNewFile *.twig        setlocal filetype=jinja
+        au BufRead,BufNewFile *.html.twig   setlocal filetype=htmljinja
+        au BufRead,BufNewFile *.js.twig     setlocal filetype=javascript
+        au BufRead,BufNewFile *.ejs         setlocal filetype=html
+        au BufRead,BufNewFile *.json        setlocal filetype=javascript
+        au BufRead,BufNewFile *.pp          setlocal filetype=ruby
+        au BufRead,BufNewFile *.slim        setlocal filetype=slim
+    augroup END
+
+    augroup TabsConfig
+        autocmd!
+        au BufRead,BufNewFile *.php         setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+        au BufRead,BufNewFile *.css         setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+        au BufRead,BufNewFile *.scss        setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+        au BufRead,BufNewFile *.less        setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+        au BufRead,BufNewFile *.yaml        setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+        au BufRead,BufNewFile *.py          setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+        au BufRead,BufNewFile *.feature     setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+        au BufRead,BufNewFile *.ruby        setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+        au BufRead,BufNewFile *.js          setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+        au BufRead,BufNewFile *.coffee      setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+        au BufRead,BufNewFile *.jade        setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+    augroup END
+endif
