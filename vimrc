@@ -4,21 +4,20 @@ set exrc                        " enable per-directory .vimrc files
 set secure                      " recommended security for external .vimrc files
 set encoding=utf-8              " Encoding
 
-set rtp+=~/.vim/bundle/vundle/  " Vundle
-call vundle#rc()                " Vundle
+set rtp+=~/.vim/bundle/Vundle.vim  " Vundle
+call vundle#begin()                " Vundle
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 "Background
-Bundle 'altercation/vim-colors-solarized'
 syntax enable
 set t_Co=256
 let g:solarized_termtrans=1
 let g:solarized_termcolors = 256
 let g:solarized_contrast="high"
 let g:solarized_visibility="high"
-colorscheme solarized
 set background=light
+colorscheme solarized
 
 " MapLeader
 let mapleader=","               " Change mapleader
@@ -146,6 +145,9 @@ endfunc
 nmap <leader>cw :call ClearWhiteSpace()<CR>
 
 " Use local bundles if available
-if filereadable(expand("~/.vim/bundles"))
-    source ~/.vim/bundles
+if filereadable(expand("~/.vim/bundle/bundles"))
+    source ~/.vim/bundle/bundles
 endif
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
