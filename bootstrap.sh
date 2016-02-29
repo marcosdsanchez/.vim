@@ -16,4 +16,10 @@ ln -s $DIR/vimrc $HOME/init.vim
 ln -s $DIR/vimrc $HOME/.vimrc
 ln -s $DIR/gvimrc $HOME/.gvimrc
 
+#Nvim
+
+mkdir -p ${XDG_CONFIG:=$HOME/.config}
+ln -s ~/.vim $XDG_CONFIG_HOME/nvim
+ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+
 vim +PluginInstall +qall
