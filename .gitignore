@@ -3,3 +3,5 @@ bundle
 tmp
 undo
 colors
+.vim
+init.vim
