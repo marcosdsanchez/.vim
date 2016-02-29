@@ -1,0 +1,56 @@
+" vim: filetype=vim
+Plugin 'altercation/vim-colors-solarized'
+set t_Co=256
+let g:solarized_termtrans=1
+let g:solarized_termcolors = 256
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+set background=light
+colorscheme solarized
+
+" Ctrlp
+Plugin 'ctrlpvim/ctrlp.vim'
+"Config
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/](\.git\|\.hg\|\.svn)$',
+            \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\|\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.cur$\|\.swf$\|\.ico$\|\.ttf$\'
+            \ }
+"    let g:ctrlp_max_files = 0
+
+" Surround
+Plugin 'tpope/vim-surround'
+
+Plugin 'scrooloose/nerdtree'
+nnoremap <silent> <leader>m  :NERDTreeToggle<CR>
+
+" Gist
+Plugin 'mattn/webapi-vim'
+Plugin 'mattn/gist-vim'
+"Config
+if has("mac")
+    let g:gist_clip_command = 'pbcopy'
+elseif has("unix")
+    let g:gist_clip_command = 'xclip -selection clipboard'
+else
+    let g:gist_clip_command = 'putclip'
+endif
+let g:gist_detect_filetype = 1
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
+
+" GitGutter
+Plugin 'airblade/vim-gitgutter'
+
+" VimAirline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline_powerline_fonts = 1
+
+" Syntastic
+Plugin 'scrooloose/syntastic'
+
+" Fugitive
+Plugin 'tpope/vim-fugitive'
+
+runtime macros/matchit.vim
