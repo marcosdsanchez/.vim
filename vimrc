@@ -21,7 +21,6 @@ filetype plugin indent on       " Load file type plugins + indentation
 
 set nostartofline               " Don’t reset cursor to start of line when moving around.
 set nowrap                      " Don't wrap lines
-set tabstop=4 shiftwidth=4 softtabstop=4      " A tab is two spaces (or set this to 4)
 set expandtab                   " Use spaces, not tabs (optional)
 set backspace=indent,eol,start  " Backspace through everything in insert mode
 set laststatus=2                " Always show the statusline
@@ -35,10 +34,13 @@ set lazyredraw                  " Stop vim from redrawing the screen during comp
 set list                        " Show trailing whitespace
 set listchars=tab:\ ·,trail:·   " Show trailing whitespace
 
-if has ('x') && has ('gui') " on Linux use + register for copy-paste
-    set clipboard=unnamedplus
-else " on mac and windows, use * register for copy-paste
-    set clipboard=unnamed
+if has("unix")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin"
+     set clipboard=unnamed "on mac and windows, use * register for copy-paste
+  else
+     set clipboard=unnamedplus "on Linux use + register for copy-paste
+  endif
 endif
 
 " Mouse
